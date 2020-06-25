@@ -17,8 +17,8 @@ class DistrictSearch extends RmsDistrict
     public function rules()
     {
         return [
-            [['district_id', 'state_id', 'district_added_by'], 'integer'],
-            [['district_name', 'district_status', 'created_date'], 'safe'],
+            [['district_id', 'district_added_by'], 'integer'],
+            [['district_name', 'district_status', 'created_date','state_id'], 'safe'],
         ];
     }
 
@@ -41,6 +41,7 @@ class DistrictSearch extends RmsDistrict
     public function search($params)
     {
         $query = RmsDistrict::find();
+        $query->joinWith('state');
 
         // add conditions that should always apply here
 
@@ -59,13 +60,13 @@ class DistrictSearch extends RmsDistrict
         // grid filtering conditions
         $query->andFilterWhere([
             'district_id' => $this->district_id,
-            'state_id' => $this->state_id,
-            'district_added_by' => $this->district_added_by,
+                       'district_added_by' => $this->district_added_by,
             'created_date' => $this->created_date,
         ]);
 
         $query->andFilterWhere(['like', 'district_name', $this->district_name])
-            ->andFilterWhere(['like', 'district_status', $this->district_status]);
+            ->andFilterWhere(['like', 'district_status', $this->district_status])
+             ->andFilterWhere(['like', 'rms_states.rms_state_name', $this->state_id]);
 
         return $dataProvider;
     }

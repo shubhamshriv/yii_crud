@@ -26,9 +26,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'district_id',
+           'district_id',
+         
             'district_name',
-            'state_id',
+            
+            ['attribute' => 'state_id',
+              'value' => 'state.rms_state_name'  
+            ],
             'district_added_by',
             'district_status',
             //'created_date',

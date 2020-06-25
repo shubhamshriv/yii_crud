@@ -33,9 +33,9 @@ class RmsDistrict extends \yii\db\ActiveRecord
     {
         return [
             [['district_name', 'state_id', 'district_added_by', 'created_date'], 'required'],
-            [['state_id', 'district_added_by'], 'integer'],
+            [[ 'district_added_by'], 'integer'],
             [['district_status'], 'string'],
-            [['created_date'], 'safe'],
+            [['created_date','state_id'], 'safe'],
             [['district_name'], 'string', 'max' => 50],
             [['district_name'], 'unique'],
             [['state_id'], 'exist', 'skipOnError' => true, 'targetClass' => RmsStates::className(), 'targetAttribute' => ['state_id' => 'rms_state_id']],
